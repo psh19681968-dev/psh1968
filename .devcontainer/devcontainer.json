@@ -1,0 +1,35 @@
+{
+    "name": "Bible Sermon Generator",
+    "image": "mcr.microsoft.com/devcontainers/python:3.12",
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {}
+    },
+    "postCreateCommand": "pip install --user -r requirements.txt",
+    "postAttachCommand": {
+        "server": "python app.py"
+    },
+    "forwardPorts": [5000],
+    "portsAttributes": {
+        "5000": {
+            "label": "Sermon Generator",
+            "onAutoForward": "openPreview",
+            "visibility": "public"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance"
+            ],
+            "settings": {
+                "python.defaultInterpreterPath": "/usr/local/bin/python"
+            }
+        }
+    },
+    "remoteEnv": {
+        "ANTHROPIC_API_KEY": "${localEnv:ANTHROPIC_API_KEY}",
+        "FLASK_SECRET_KEY": "${localEnv:FLASK_SECRET_KEY}",
+        "PORT": "5000"
+    }
+}
