@@ -1,0 +1,382 @@
+:root {
+    --bg: #faf8f3;
+    --surface: #ffffff;
+    --ink: #2c2419;
+    --ink-soft: #5a4e3e;
+    --ink-muted: #8a7d6b;
+    --accent: #8b6f47;
+    --accent-dark: #6b5433;
+    --accent-soft: #e8dcc4;
+    --border: #e6dfd1;
+    --shadow: 0 4px 20px rgba(90, 78, 62, 0.08);
+    --shadow-lg: 0 10px 40px rgba(90, 78, 62, 0.12);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.7;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+.container {
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+/* Hero */
+.hero {
+    text-align: center;
+    padding: 40px 20px 50px;
+}
+
+.hero-title {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--accent-dark);
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+}
+
+.hero-subtitle {
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    line-height: 1.8;
+    font-weight: 300;
+}
+
+.hero-note {
+    margin-top: 14px;
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    font-weight: 300;
+}
+
+/* Input Card */
+.input-card {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+}
+
+.tab-row {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0;
+}
+
+.tab {
+    background: transparent;
+    border: none;
+    padding: 10px 18px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--ink-muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.tab:hover {
+    color: var(--ink-soft);
+}
+
+.tab.active {
+    color: var(--accent-dark);
+    border-bottom-color: var(--accent);
+    font-weight: 700;
+}
+
+.field-wrap {
+    margin-bottom: 22px;
+}
+
+label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--ink);
+    background: var(--bg);
+    resize: vertical;
+    min-height: 80px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(139, 111, 71, 0.12);
+    background: var(--surface);
+}
+
+textarea::placeholder {
+    color: var(--ink-muted);
+}
+
+.examples {
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.example-label {
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    margin-right: 4px;
+}
+
+.example-chip {
+    background: var(--accent-soft);
+    border: none;
+    color: var(--accent-dark);
+    padding: 6px 12px;
+    border-radius: 14px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.example-chip:hover {
+    background: #dcc9a4;
+}
+
+/* Generate button */
+.generate-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.2s ease, transform 0.05s ease;
+}
+
+.generate-btn:hover:not(:disabled) {
+    background: var(--accent-dark);
+}
+
+.generate-btn:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+.generate-btn:disabled {
+    background: var(--ink-muted);
+    cursor: not-allowed;
+}
+
+.btn-loader {
+    display: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.generate-btn.loading .btn-loader {
+    display: inline-block;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Output */
+.output-section {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 36px 40px;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 30px;
+}
+
+.output-section.hidden {
+    display: none;
+}
+
+.output-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.output-header h2 {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 1.5rem;
+    color: var(--accent-dark);
+    font-weight: 700;
+}
+
+.output-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.status {
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    margin-right: 8px;
+}
+
+.status.thinking::before {
+    content: "●";
+    color: var(--accent);
+    animation: pulse 1.2s ease-in-out infinite;
+    margin-right: 4px;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+.action-btn {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--ink-soft);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.action-btn:hover:not(:disabled) {
+    background: var(--accent-soft);
+    color: var(--accent-dark);
+    border-color: var(--accent-soft);
+}
+
+.action-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.sermon-output {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 1.05rem;
+    line-height: 2;
+    color: var(--ink);
+    white-space: pre-wrap;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    min-height: 60px;
+}
+
+.sermon-output strong {
+    display: block;
+    font-weight: 800;
+    color: var(--accent-dark);
+    font-size: 1.15rem;
+    margin-top: 1.8em;
+    margin-bottom: 0.6em;
+    letter-spacing: -0.01em;
+}
+
+.sermon-output strong:first-child {
+    margin-top: 0;
+}
+
+.usage-info {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--border);
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+    text-align: right;
+}
+
+.usage-info.hidden {
+    display: none;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 30px 20px;
+    color: var(--ink-muted);
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* Error */
+.error-message {
+    background: #fff5f5;
+    color: #c53030;
+    border: 1px solid #feb2b2;
+    padding: 14px 18px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 0.95rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    body {
+        padding: 20px 14px;
+    }
+
+    .hero-title {
+        font-size: 2.2rem;
+    }
+
+    .input-card, .output-section {
+        padding: 22px;
+    }
+
+    .output-section {
+        padding: 24px 22px;
+    }
+
+    .sermon-output {
+        font-size: 1rem;
+    }
+
+    .output-header {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}
