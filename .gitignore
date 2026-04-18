@@ -8,7 +8,12 @@ env/
 .env.local
 .DS_Store
 .idea/
-.vscode/
+# .vscode는 프로젝트 공용 설정 — 다음 파일만 버전 관리
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/settings.json
+!.vscode/extensions.json
 *.log
 instance/
 .pytest_cache/

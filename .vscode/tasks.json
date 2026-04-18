@@ -1,0 +1,59 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "가상환경 생성 (.venv)",
+            "type": "shell",
+            "command": "python3 -m venv .venv",
+            "windows": {
+                "command": "py -3 -m venv .venv"
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "의존성 설치 (pip install)",
+            "type": "shell",
+            "command": "${workspaceFolder}/.venv/bin/pip install -r requirements.txt",
+            "windows": {
+                "command": "${workspaceFolder}\\.venv\\Scripts\\pip.exe install -r requirements.txt"
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "초기 설정: 가상환경 + 의존성 설치",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "가상환경 생성 (.venv)",
+                "의존성 설치 (pip install)"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "서버 실행 (python app.py)",
+            "type": "shell",
+            "command": "${workspaceFolder}/.venv/bin/python app.py",
+            "windows": {
+                "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe app.py"
+            },
+            "options": {
+                "env": {
+                    "FLASK_DEBUG": "1"
+                }
+            },
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        }
+    ]
+}

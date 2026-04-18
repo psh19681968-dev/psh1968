@@ -26,13 +26,68 @@
 - 사용을 마치면 **Codespaces 페이지**에서 해당 codespace를 **Stop** 또는 **Delete**
 - 무료 사용량(월 60시간/Pro 플랜은 90시간) 안에서 자유롭게 활용
 
-## 로컬에서 실행하기
+## Visual Studio Code에서 실행하기
+
+`.vscode/` 설정이 포함되어 있어 **F5 한 번**이면 실행됩니다.
+
+### 최초 1회 준비
+
+1. **저장소 열기**
+   ```bash
+   git clone <repository-url>
+   cd psh1968
+   git checkout claude/bible-sermon-generator-wGKAe
+   code .
+   ```
+
+2. **권장 확장 설치**
+   - VS Code가 "이 저장소의 권장 확장을 설치할까요?" 라고 물으면 **Install all** 클릭
+   - 수동 설치 시: **Python**, **Pylance**, **Python Debugger** 확장
+
+3. **Python 가상환경 + 의존성 설치**
+   - `Ctrl/Cmd + Shift + P` → **Tasks: Run Task** → **초기 설정: 가상환경 + 의존성 설치**
+   - 또는 터미널에서 직접:
+     ```bash
+     python3 -m venv .venv
+     .venv/bin/pip install -r requirements.txt   # Windows: .venv\Scripts\pip install -r requirements.txt
+     ```
+
+4. **Python 인터프리터 선택**
+   - `Ctrl/Cmd + Shift + P` → **Python: Select Interpreter**
+   - `./.venv/bin/python` 선택
+
+5. **`.env` 파일 생성**
+   ```bash
+   cp .env.example .env
+   ```
+   `.env` 파일을 열어 `ANTHROPIC_API_KEY` 값 입력
+
+### 실행
+
+- **F5** 키 → "Flask: 설교문 생성기 실행" 선택
+- 또는 왼쪽 사이드바 **Run and Debug** 패널에서 실행 버튼 클릭
+- 터미널에 `http://localhost:5000` 안내가 뜨면 브라우저로 접속
+- 코드 중단점(breakpoint)도 그대로 동작합니다
+
+### 단축 명령 요약
+
+| 작업 | 방법 |
+|------|------|
+| 서버 실행(디버그) | `F5` |
+| 서버 실행(디버그 없이) | `Ctrl/Cmd + F5` |
+| 중단 | `Shift + F5` |
+| 태스크 실행 | `Ctrl/Cmd + Shift + P` → `Run Task` |
+| 터미널 열기 | `Ctrl/Cmd + \`` |
+
+## 로컬 터미널에서 실행 (VS Code 없이)
 
 ```bash
 git clone <repository-url>
 cd psh1968
 git checkout claude/bible-sermon-generator-wGKAe
 
+python3 -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 cp .env.example .env
 # .env 파일을 열어 ANTHROPIC_API_KEY를 입력
